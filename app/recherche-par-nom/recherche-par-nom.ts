@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recherche-par-nom',
-  imports: [DatePipe, FormsModule,SearchFilterPipe,CommonModule],
+  imports: [DatePipe, FormsModule,CommonModule,RouterLink],
   templateUrl: './recherche-par-nom.html',
   styles: ``
 })
@@ -20,14 +20,20 @@ export class RechercheParNom implements OnInit {
   searchTerm!: string;
   IdType!: number;
   constructor(private gameService: GameService) { }
-  ngOnInit(): void {
-    this.gameService.listeGames1().subscribe(games => {
-      console.log(games);
-      this.games = games;
-    })
-  };
+   ngOnInit(): void {
+    this.allgames= this.gameService.listeGames();
+    this.games=this.gameService.listeGames();
+  }
   onKeyUp(filterText: string) {
-    this.games = this.allgames.filter(item =>
-      item.nomGame?.toLowerCase().includes(filterText));
+    this.games = this.allgames.filter(item => item.nomGame?.toLowerCase().includes(filterText));
+  }
+ supprimerGame(g: Game) {
+  let conf = confirm("Etes-vous sûr ?");
+  if (conf) {
+    this.gameService.supprimerGame(g);
+    this.games = [...this.gameService.listeGames()];
+    console.log('Deleted:', g.nomGame);
   }
 }
+}
+

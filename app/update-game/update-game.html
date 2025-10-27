@@ -2,36 +2,72 @@
     <div>
         <h2>Modifier un Jeu :</h2>
     </div>
-    <form>
+
+    <form [formGroup]="myForm" (ngSubmit)="updateGame()">
+
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
             <label>ID Game</label>
-            <input type="text" [(ngModel)]="currentGame.idGame" name="idGame" class="form-control">
+            <input type="text" formControlName="idGame" class="form-control" />
         </div>
+
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Nom Game</label>
-            <input type="text" [(ngModel)]="currentGame.nomGame" name="nomGame" class="form-control">
+            <input type="text" formControlName="nomGame" class="form-control" />
+            <span *ngIf="myForm.get('nomGame')?.hasError('required') && myForm.get('nomGame')?.touched" class="text-danger">
+                Le nom est obligatoire !
+            </span>
+            <span *ngIf="myForm.get('nomGame')?.hasError('minlength') && myForm.get('nomGame')?.touched" class="text-danger">
+                Le nom doit contenir au moins 3 caractères !
+            </span>
         </div>
 
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>Prix Game</label>
-            <input type="number" [(ngModel)]="currentGame.prixGame" name="prixGame" class="form-control">
+            <input type="number" formControlName="prixGame" class="form-control" />
+            <span *ngIf="myForm.get('prixGame')?.hasError('required') && myForm.get('prixGame')?.touched" class="text-danger">
+                Le prix est obligatoire !
+            </span>
+            <span *ngIf="myForm.get('prixGame')?.hasError('min') && myForm.get('prixGame')?.touched" class="text-danger">
+                Le prix doit être positif !
+            </span>
         </div>
 
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date création</label>
-            <input type="date" [ngModel]="currentGame.dateCreation | date: 'yyyy-MM-dd'"
-                (ngModelChange)=" currentGame.dateCreation= $event" name="dateCreation" class="form-control">
+            <input type="date" formControlName="dateCreation" class="form-control" />
+            <span *ngIf="myForm.get('dateCreation')?.hasError('required') && myForm.get('dateCreation')?.touched" class="text-danger">
+                La date est obligatoire !
+            </span>
         </div>
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Email</label>
+            <input type="email" formControlName="email" class="form-control" />
+            <span *ngIf="myForm.get('email')?.hasError('required') && myForm.get('email')?.touched" class="text-danger">
+                L'email est obligatoire !
+            </span>
+            <span *ngIf="myForm.get('email')?.hasError('email') && myForm.get('email')?.touched" class="text-danger">
+                L'email n'est pas valide !
+            </span>
+        </div>
+
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Type</label>
-            <select class="form-control form-control-lg" id="idType" name="idType" [(ngModel)]="updatedTypeId">
+            <select class="form-control form-control-lg" formControlName="idType">
                 @for(type of types; track type.idType){
-                <option [value]="type.idType"> {{type.nomType}} </option>
+                <option [value]="type.idType">{{ type.nomType }}</option>
                 }
             </select>
+            <span *ngIf="myForm.get('idType')?.hasError('required') && myForm.get('idType')?.touched" class="text-danger">
+                Le type est obligatoire !
+            </span>
         </div>
+
         <div class="mt-2">
-            <button type="submit" (click)="updateGame()" class="btn btn-success">Modifer</button>
+            <button type="submit" class="btn btn-success" [disabled]="myForm.invalid">
+                Modifier
+            </button>
         </div>
+
     </form>
 </div>

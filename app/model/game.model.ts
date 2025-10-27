@@ -5,5 +5,6 @@ idGame? : number;
 nomGame? : string; 
 prixGame? : number; 
 dateCreation? : Date ;
-type?: Type; 
+type?: Type;
+email?:string; 
 } 

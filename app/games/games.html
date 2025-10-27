@@ -9,6 +9,7 @@
                     <th>Prix</th>
                     <th>Date Création</th>
                     <th>Type</th>
+                    <th>Email de l'ajouteur:</th>
                 </tr>
                 @for (game of games; track game.idGame; let index =$index)
                 {
@@ -20,6 +21,7 @@
                         <td>{{game.prixGame == 0 ? 'Free' : game.prixGame + ' $'}}</td>
                         <td>{{game.dateCreation | date:'dd/MM/yyyy'}}</td>
                         <td>{{game.type?.nomType||"-"}}</td>
+                        <td>{{game.email}}</td>
                         <td><a class="btn btn-danger" (click)="supprimerGame(game)">Supprimer</a></td> 
                         <td><a class="btn btn-success" [routerLink]="['/updateGame',game.idGame]">Modifier</a></td>  
                     </tr>

@@ -6,10 +6,11 @@ import { RechercheParType } from './recherche-par-type/recherche-par-type';
 import { RechercheParNom } from './recherche-par-nom/recherche-par-nom';
 
 export const routes: Routes = [
-    {path: "games", component : Games},
-    {path: "add-game", component : AddGame},
-    {path: "", redirectTo: "games", pathMatch: "full"},
-    {path: "updateGame/:id",  component: UpdateGame},
-    {path: "rechercheParType", component : RechercheParType},
-    {path: "rechercheParNom", component : RechercheParNom},
+  { path: "games", component: Games, runGuardsAndResolvers: 'always' },
+  { path: "add-game", component: AddGame },
+  { path: "", redirectTo: "games", pathMatch: "full" },
+  { path: "updateGame/:id", component: UpdateGame },
+  { path: "rechercheParType", component: RechercheParType },
+  { path: "rechercheParNom", component: RechercheParNom },
 ];
+

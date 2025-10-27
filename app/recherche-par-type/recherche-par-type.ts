@@ -36,6 +36,4 @@ export class RechercheParType implements OnInit {
       this.gameService.supprimerGame(g);
     this.games = this.gameService.rechercherParType(this.IdType);
   }
-  onKeyUp(filterText : string){
-this.games = this.allGames.filter(item => item.nomGame?.toLowerCase().includes(filterText));
-  }}
+}

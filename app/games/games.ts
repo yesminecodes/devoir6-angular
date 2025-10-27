@@ -14,6 +14,9 @@ export class Games {
   constructor(private gameService: GameService) {
     this.games = gameService.listeGames();
   }
+  ngOnInit(): void {
+  this.games = this.gameService.listeGames();
+}
   supprimerGame(g: Game) {
     //console.log(g);
     let conf = confirm("Etes-vous sûr ?");

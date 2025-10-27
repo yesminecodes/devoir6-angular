@@ -1,10 +1,16 @@
 <div class="container">
-    <form class="form-inline">
+     <form class="form-inline">      
+        <div class="form-group mx-sm-3 mb-2 mt-2 "> 
+            <label>Nom Game en tapant</label> 
+  <input class="form-control"  #searchTerm (keyup)="onKeyUp(searchTerm.value)"> 
+        </div> 
+    </form>
+    <!--<form class="form-inline">
         <div class="form-group mx-sm-3 mb-2 mt-2 ">
             <label>Nom game en tapant</label>
             <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
         </div>
-    </form>
+    </form>-->
     <div class="card shadow mb-4">
         <div class="card-body">
             <table class="table table-striped">
@@ -13,9 +19,10 @@
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Date Création</th>
-                    <th>Catégorie</th>
+                    <th>Type</th>
+                    <th>Email de l'ajouteur</th>
                 </tr>
-                @for (game of games | searchFilter: searchTerm ; track game.idGame ; let last = $last)
+                @for (game of games ; track game.idGame ; let last = $last)
                 {<tbody>
                     <tr>
                         <td>{{game.idGame}}</td>
@@ -27,6 +34,9 @@
                         @else {
                         <td>PAS DE TYPE</td>
                         }
+                        <td>{{game.email}}</td>
+                        <td><a class="btn btn-danger" (click)="supprimerGame(game)">Supprimer</a></td>
+                        <td><a class="btn btn-success" [routerLink]="['/updateGame',game.idGame]">Modifier</a></td>
                     </tr>
                 </tbody>}
             </table>
